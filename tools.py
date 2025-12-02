@@ -83,7 +83,7 @@ def run_teaching_demo(program_name: str, arguments: str = "") -> str:
             check=True,
             capture_output=True,
             text=True,
-            timeout=30 # 教学程序可能运行较久
+            timeout=30
         )
         return f"C 语言演示程序 {program_name} 运行输出:\n{result.stdout.strip()}"
     except Exception as ex:
@@ -125,10 +125,8 @@ def search_knowledge_base(question: str) -> str:
             result_text = "\n\n--- 检索到的参考资料 ---\n".join(chunks)
             return f"查询成功，参考资料如下:\n{result_text}"
         else:
-            # 如果是成功调用但没有相关材料，可能阈值设置过高
             return "知识库未找到与该问题高度相关的参考资料。"
     except Exception as ex:
         return f"RAGFlow 调用失败: {ex}"
 
-# 导出所有工具
 TOOLS = [execute_safe_shell, clear_system_cache, run_teaching_demo, search_knowledge_base]

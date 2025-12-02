@@ -5,7 +5,7 @@ from langchain_ollama import ChatOllama as Ollama
 from langgraph.graph import StateGraph, END
 from pydantic import BaseModel
 
-from config import OLLAMA_URL, MODEL_NAME, SYSTEM_PROMPT
+from config import OLLAMA_URL, MODEL_NAME, SYSTEM_PROMPT,SYSTEM_PROMPT2
 from tools import TOOLS
 
 
@@ -128,7 +128,7 @@ def synthesizer_node(state_synthesizer: AgentState) -> AgentState:
     retrieval_result = state_synthesizer.output
     original_input = state_synthesizer.input
     synthesis_prompt = ChatPromptTemplate.from_messages([
-        ("system", SYSTEM_PROMPT),
+        ("system", SYSTEM_PROMPT2),
         ("human", f"原始问题: {original_input}\n\n--- 参考材料 ---\n{retrieval_result}")
     ])
     response = llm_synthesize.invoke(synthesis_prompt.invoke({}))
